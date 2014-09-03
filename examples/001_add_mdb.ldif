@@ -1,0 +1,8 @@
+dn: olcDatabase=mdb,cn=config
+objectClass: olcMdbConfig
+objectClass: olcDatabaseConfig
+olcDatabase: mdb
+olcSuffix: dc=example,dc=test
+olcDbDirectory: /storage/db1
+olcRootDN: cn=root,dc=example,dc=test
+olcRootPW: example
