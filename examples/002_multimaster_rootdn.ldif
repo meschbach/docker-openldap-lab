@@ -1,0 +1,6 @@
+dn: dc=example,dc=test
+changeType: add
+objectClass: dcObject
+objectClass: organization
+dc: example
+o: Example, Inc

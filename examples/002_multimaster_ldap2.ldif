@@ -1,0 +1,41 @@
+dn: olcDatabase=monitor,cn=config
+changeType: add
+objectClass: olcDatabaseConfig
+olcDatabase: monitor
+olcRootDN: cn=root,cn=monitor
+olcRootPW: secret
+
+dn: cn=config
+changeType: modify
+add: olcServerID
+olcServerID: 2 
+
+dn: olcDatabase={1}mdb,cn=config
+changeType: add
+objectClass: olcMdbConfig
+objectClass: olcDatabaseConfig
+olcDatabase: mdb
+olcSuffix: dc=example,dc=test
+olcDbDirectory: /storage/db1
+olcRootDN: cn=root,dc=example,dc=test
+olcRootPW: example
+
+dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
+changeType: add
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpCheckpoint: 100 10
+
+dn: olcDatabase={1}mdb,cn=config
+changeType: modify
+add: olcSyncrepl
+olcSyncrepl: {1}rid=001 provider="ldap://172.17.42.1:1025" searchbase="dc=example,dc=test" binddn="cn=root,dc=example,dc=test" credentials=example bindmethod=simple retry="5 5 300 +" timeout=5 type=refreshAndPersist attrs="*,+"
+olcSyncrepl: {2}rid=002 provider="ldap://172.17.42.1:1026" searchbase="dc=example,dc=test" binddn="cn=root,dc=example,dc=test" credentials=example bindmethod=simple retry="5 5 300 +" timeout=5 type=refreshAndPersist attrs="*,+"
+-
+add: olcDbIndex
+olcDbIndex: entryUUID eq
+olcDbIndex: entryCSN eq
+olcDbIndex: objectClass eq
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE

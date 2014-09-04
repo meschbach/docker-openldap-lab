@@ -1,0 +1,4 @@
+dn: ou=test,dc=example,dc=test
+changeType: add
+objectClass: organizationalUnit
+ou: test
